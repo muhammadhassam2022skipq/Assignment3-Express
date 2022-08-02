@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<%- include ("includes/header.ejs") %>
+  <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body>
+    <%- include ("includes/navbar.ejs") %>
+    <section id="home">
+        <h1 class="text-center pt-10">Welcome Admin</h1>
+        <div class="container">
+            <div class="row">
+              <div class="col-md-6 mx-auto">
+                <form action="/admin" method="post" class="form-signin">
+                  <h1 class="h3 mb-3 font-weight-normal">Please Enter Your Login Credential:</h1>
+                  <label for="adminName" class="sr-only">User Name</label>
+                  <p>
+                    <input type="text" id="adminName" name="adminName" class="form-control" placeholder="User Name" required autofocus>
+                  </p>
+                  <label for="adminPassword" class="sr-only">Password</label>
+                  <p>
+                    <input type="password" id="adminPassword" name="adminPassword" class="form-control" placeholder="Password" required>
+                  </p>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+                </form>
+              </div>
+            </div>
+          </div>
+      </section>
+
+      <%- include ("includes/footer.ejs") %>
+        <%- include ("includes/end.ejs") %>
