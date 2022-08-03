@@ -7,16 +7,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
+                <% if (isAuthenticated && Admin) { %>
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                     <a class="nav-link" href="/admin">Admin</a>
                     <a class="nav-link" href="/addproducts">Add Products</a>
                     <a class="nav-link" href="/listproducts">List Products</a>
-                        <% if(!isAuthenticated && isAuthenticated===false) { %>
-                            <a class="nav-link" href="/signup">Sign Up</a>
-                            <a class="nav-link" href="/signin">Sign In</a>
-                        <% } else { %>
-                                <a class="nav-link" href="/signout">Sign Out</a>
+                    <a class="nav-link" href="/signout">Sign Out</a>
+                    <% } else if (isAuthenticated && !Admin ) { %>
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link" href="/listproducts">List Products</a>
+                        <a class="nav-link" href="/signout">Sign Out</a>
                         <% } %>
+                            <% if(!isAuthenticated && isAuthenticated === false) { %>
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                                <a class="nav-link" href="/signin">Sign In</a>
+                                <a class="nav-link" href="/signup">Sign Up</a>
+                                <% } %>
+
             </div>
         </div>
     </div>

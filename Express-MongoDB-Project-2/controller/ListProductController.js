@@ -1,24 +1,24 @@
 let name;
 let price;
 const productModel = require("../model/addProductListModel");
-const mongoose = require ("mongoose");
-exports.getProduct = ((req, res) => { 
+const mongoose = require("mongoose");
+exports.getProduct = ((req, res) => {
     const isAuthenticated = req.session.isLoggedIn ? req.session.isLoggedIn : false;
-    const userType = "";
+    const Admin = req.session.isAdminLoggedIn ? req.session.isAdminLoggedIn : false;
     if (isAuthenticated == true) {
-    productModel.find().then (products=> {
-        res.render("listProduct", {
-            pageTitle: "Product List",
-            products : products,
-            isAuthenticated: isAuthenticated,
-            userType: userType
-         })
-    }).catch ((err)=> {
-        console.log("The error is: "+err)
-    })
+        productModel.find().then(products => {
+            res.render("listProduct", {
+                pageTitle: "Product List",
+                products: products,
+                isAuthenticated: isAuthenticated,
+                Admin: Admin
+            })
+        }).catch((err) => {
+            console.log("The error is: " + err)
+        })
     }
     else {
-        res.redirect ("signin")
+        res.redirect("signin")
     }
 
 });
@@ -31,7 +31,7 @@ exports.postProduct = ((req, res) => {
         category: req.body.category,
     });
     product.save().then(addedProduct => {
-        res.redirect ("/listproducts");
+        res.redirect("/listproducts");
     });
 
 

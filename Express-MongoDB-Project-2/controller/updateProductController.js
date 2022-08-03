@@ -3,12 +3,12 @@ const productModel = require("../model/addProductListModel");
 const mongoose = require ("mongoose");
 exports.getUpdate=((req,res)=> {
     // let isAdmin = false;
-   const  userType= "";
+    const Admin = req.session.isAdminLoggedIn ? req.session.isAdminLoggedIn : false;
     const isAuthenticated = req.session.isLoggedIn ? req.session.isLoggedIn : false;
     res.render("update", {
         pageTitle: "Product Update",
         isAuthenticated: isAuthenticated,
-        userType: userType
+        Admin : Admin
     })
 });
 

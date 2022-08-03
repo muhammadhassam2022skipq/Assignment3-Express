@@ -11,14 +11,16 @@ const addProductRoute = require("./routes/addProductRoute");
 const listProductRoute = require("./routes/listProductRoute");
 const updateProductRoute = require("./routes/upadateRoute");
 const deleteProductRoute = require("./routes/deleteRoute");
-const accountRoute = require ("./routes/accountRoute");
-const adminRoute = require ("./routes/adminRoute");
+const accountRoute = require("./routes/accountRoute");
+const adminRoute = require("./routes/adminRoute");
+const forgetPasswordRoute = require("./routes/forgetPasswordRoute");
+const signUPModel = require("./model/signUPModel");
 
 
 const store = new MongoDBStore({
-    uri: 'mongodb://cmdlhrltx03:27017/store-sessions',
-    collection: 'sessions'
-  });
+  uri: 'mongodb://cmdlhrltx03:27017/store-sessions',
+  collection: 'sessions'
+});
 
 // To
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,13 +30,13 @@ app.set("views", "views");
 app.set("view engine", "ejs");
 
 app.use(
-    session({
-      secret: 'my secret',
-      resave: false,
-      saveUninitialized: false,
-      store: store
-    })
-  );
+  session({
+    secret: 'my secret',
+    resave: false,
+    saveUninitialized: false,
+    store: store
+  })
+);
 
 //giving the location of static files
 app.use(express.static(__dirname + "/public"));
@@ -48,24 +50,30 @@ app.use(addProductRoute);
 app.use(listProductRoute);
 app.use(updateProductRoute);
 app.use(deleteProductRoute);
-app.use (accountRoute);
-app.use (adminRoute);
+app.use(accountRoute);
+app.use(forgetPasswordRoute);
+app.use(adminRoute);
 
-app.use((req, res,next) => {
+
+
+app.use((req, res, next) => {
   const isAuthenticated = req.session.isLoggedIn ? req.session.isLoggedIn : false;
-    res.render("error", {
-        pageTitle: "Error Page Not Found",
-        isAuthenticated: isAuthenticated
-    })
+  res.render("error", {
+    pageTitle: "Error Page Not Found",
+    isAuthenticated: isAuthenticated
+  })
 });
 
 
 //mongodb://cmdlhrltx03:27017/hassamDB
 // Connecting with mongoDB server and then Listening to the port
-mongoose.connect('mongodb://cmdlhrltx03:27017/hassamDB').then(() => {
-    app.listen(4000, () => {
-        console.log("Listening on port 4000");
+mongoose.connect('mongodb://cmdlhrltx03:27017/hassamDB').then((req, res) => {
+
+  app.listen(4000, () => {
+    signUPModel.findOne({_id: "62ea3b26654c9f3793c310e1"}).then( ()=> {
+      console.log("connected to the port 4000");
+    }).catch(err => {
+      console.log("Failed to connect to the server as admin does not exists");
     })
-}).catch((err) => {
-    console.log("The error is: " + err);
-});
+  })
+})
