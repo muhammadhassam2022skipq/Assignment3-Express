@@ -1,0 +1,10 @@
+<h1>Parent</h1>
+<h2>Display-Component</h2>
+<ul>
+  <li *ngFor="let item of myItems">
+      <app-display [data]="item"></app-display>  
+  </li> 
+</ul>
+
+<app-test (myPersonalDetail)='addPersonalDetail($event)'></app-test>
+
